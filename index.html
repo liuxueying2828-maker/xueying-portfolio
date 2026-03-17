@@ -4,188 +4,892 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Xueying Liu – Portfolio</title>
-
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #ffffff;
-      --text: #111111;
-      --sub: #666666;
-      --border: #e5e5e5;
-      --card: #fafafa;
+      --bg: #f5f5f3;
+      --surface: rgba(255,255,255,0.72);
+      --surface-strong: rgba(255,255,255,0.9);
+      --text: #111315;
+      --muted: #6d7278;
+      --line: rgba(17,19,21,0.08);
+      --line-strong: rgba(17,19,21,0.12);
+      --shadow: 0 10px 30px rgba(17,19,21,0.04);
+      --radius: 24px;
+      --radius-sm: 16px;
+      --max: 1080px;
     }
 
     * { box-sizing: border-box; }
 
+    html { scroll-behavior: smooth; }
+
     body {
       margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       background: var(--bg);
       color: var(--text);
-      line-height: 1.6;
+      line-height: 1.65;
+      letter-spacing: -0.01em;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
     }
 
     .container {
-      max-width: 900px;
-      margin: auto;
-      padding: 60px 20px;
+      width: min(var(--max), calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(18px);
+      background: rgba(245,245,243,0.78);
+      border-bottom: 1px solid rgba(17,19,21,0.05);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 0;
+    }
+
+    .brand {
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .pill,
+    .lang-btn,
+    .cta,
+    .ghost {
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.62);
+      color: var(--text);
+      border-radius: 999px;
+      padding: 10px 14px;
+      font-size: 13px;
+      font-weight: 500;
+      transition: all 0.22s ease;
+      cursor: pointer;
+    }
+
+    .pill:hover,
+    .lang-btn:hover,
+    .cta:hover,
+    .ghost:hover {
+      background: var(--surface-strong);
+      box-shadow: var(--shadow);
+      transform: translateY(-1px);
+      border-color: var(--line-strong);
+    }
+
+    .cta {
+      background: #111315;
+      color: white;
+      border-color: #111315;
+    }
+
+    .cta:hover {
+      background: #1b1d20;
+      border-color: #1b1d20;
+    }
+
+    .hero {
+      padding: 84px 0 36px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 18px;
     }
 
     h1 {
-      font-size: 48px;
-      margin-bottom: 10px;
+      margin: 0;
+      font-size: clamp(48px, 8vw, 88px);
+      line-height: 0.95;
+      letter-spacing: -0.05em;
+      font-weight: 800;
     }
 
-    h2 {
-      margin-top: 60px;
-      font-size: 22px;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      color: var(--sub);
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.35fr 0.75fr;
+      gap: 20px;
+      align-items: end;
     }
 
-    p { color: var(--sub); }
+    .subtitle {
+      margin-top: 22px;
+      max-width: 760px;
+      font-size: clamp(18px, 2.2vw, 24px);
+      color: #262a2f;
+      font-weight: 400;
+      letter-spacing: -0.02em;
+    }
 
-    .topbar {
+    .hero-links {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 28px;
+    }
+
+    .hero-side {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 24px;
+    }
+
+    .hero-side p {
+      margin: 0 0 8px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .section {
+      padding: 28px 0 8px;
+    }
+
+    .section + .section {
+      margin-top: 16px;
+    }
+
+    .section-head {
       display: flex;
       justify-content: space-between;
-      align-items: center;
-      margin-bottom: 40px;
+      align-items: end;
+      gap: 16px;
+      margin-bottom: 18px;
     }
 
-    .buttons {
+    .section-title {
+      margin: 0;
+      font-size: clamp(26px, 4vw, 36px);
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+      font-weight: 700;
+    }
+
+    .section-note {
+      font-size: 14px;
+      color: var(--muted);
+      max-width: 500px;
+    }
+
+    .divider {
+      height: 1px;
+      background: linear-gradient(to right, rgba(17,19,21,0.12), rgba(17,19,21,0.03));
+      margin: 22px 0 8px;
+    }
+
+    .panel {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 24px;
+    }
+
+    .about {
+      font-size: 18px;
+      color: #2d3136;
+      letter-spacing: -0.015em;
+    }
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 22px;
+      min-height: 282px;
       display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.28s ease, background 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
+    }
+
+    .project-card:hover,
+    .item:hover,
+    .edu-item:hover {
+      transform: translateY(-4px);
+      background: #f0f0ed;
+      border-color: var(--line-strong);
+      box-shadow: 0 16px 34px rgba(17,19,21,0.06);
+    }
+
+    .meta {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .project-card h3,
+    .item-title,
+    .edu-name {
+      margin: 0 0 10px;
+      font-size: 22px;
+      line-height: 1.12;
+      letter-spacing: -0.03em;
+      font-weight: 700;
+    }
+
+    .project-card p,
+    .item-desc,
+    .edu-desc {
+      margin: 0;
+      font-size: 15px;
+      color: #3d4349;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 18px;
+    }
+
+    .tag {
+      padding: 7px 11px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      font-size: 12px;
+      color: var(--muted);
+      background: rgba(255,255,255,0.76);
+    }
+
+    .experience-list,
+    .education-list {
+      display: grid;
+      gap: 14px;
+    }
+
+    .item,
+    .edu-item {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 22px;
+      transition: transform 0.28s ease, background 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
+    }
+
+    .item-top,
+    .edu-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+
+    .item-company,
+    .edu-place {
+      color: var(--muted);
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+
+    .item-date,
+    .edu-date {
+      color: var(--muted);
+      font-size: 13px;
+      white-space: nowrap;
+      padding-top: 4px;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .chip {
+      padding: 8px 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      font-size: 12px;
+      color: #4a4f55;
+      background: rgba(255,255,255,0.76);
+    }
+
+    .item ul {
+      margin: 0;
+      padding-left: 18px;
+      color: #33383e;
+    }
+
+    .item li {
+      margin-bottom: 8px;
+      font-size: 15px;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 16px;
+    }
+
+    .skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .skill {
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.76);
+      font-size: 13px;
+      color: #3e444a;
+    }
+
+    .contact-box {
+      display: flex;
+      flex-direction: column;
       gap: 10px;
     }
 
-    .btn {
-      border: 1px solid var(--border);
-      padding: 8px 14px;
-      font-size: 14px;
-      cursor: pointer;
-      text-decoration: none;
-      color: var(--text);
-      transition: all 0.2s ease;
+    .contact-main {
+      font-size: 20px;
+      letter-spacing: -0.02em;
+      font-weight: 600;
     }
 
-    .btn:hover {
-      background: #111;
-      color: white;
+    .contact-sub {
+      color: var(--muted);
+      font-size: 15px;
     }
 
-    .projects {
-      display: grid;
-      gap: 20px;
-      margin-top: 20px;
+    .footer {
+      padding: 42px 0 72px;
+      color: var(--muted);
+      font-size: 13px;
     }
 
-    .card {
-      border: 1px solid var(--border);
-      padding: 20px;
-      background: var(--card);
-      transition: all 0.3s ease;
+    .fade {
       opacity: 0;
-      transform: translateY(20px);
+      transform: translateY(18px);
+      animation: fadeUp 0.7s ease forwards;
     }
 
-    .card.show {
-      opacity: 1;
-      transform: translateY(0);
+    .d1 { animation-delay: 0.06s; }
+    .d2 { animation-delay: 0.12s; }
+    .d3 { animation-delay: 0.18s; }
+    .d4 { animation-delay: 0.24s; }
+
+    @keyframes fadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
-    .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    @media (max-width: 980px) {
+      .hero-grid,
+      .project-grid,
+      .two-col {
+        grid-template-columns: 1fr;
+      }
     }
 
-    .card h3 {
-      margin: 0 0 8px;
-    }
+    @media (max-width: 640px) {
+      .nav-inner,
+      .item-top,
+      .edu-top {
+        flex-direction: column;
+        align-items: flex-start;
+      }
 
-    .lang-toggle {
-      cursor: pointer;
-      font-size: 14px;
-      border-bottom: 1px solid var(--border);
+      .container {
+        width: min(var(--max), calc(100% - 20px));
+      }
+
+      .hero {
+        padding-top: 60px;
+      }
+
+      .panel,
+      .item,
+      .edu-item,
+      .project-card,
+      .hero-side {
+        padding: 20px;
+      }
     }
   </style>
 </head>
-
 <body>
-  <div class="container">
-
-    <div class="topbar">
-      <div class="lang-toggle" onclick="toggleLang()">EN / 中文</div>
-      <div class="buttons">
-        <a class="btn" href="https://github.com/liuxueying2828-maker" target="_blank">GitHub</a>
-        <a class="btn" href="#">Notion</a>
+  <nav class="nav">
+    <div class="container nav-inner">
+      <div class="brand">Xueying Liu</div>
+      <div class="nav-right">
+        <a class="pill" href="#projects" id="navProjects">Projects</a>
+        <a class="pill" href="#experience" id="navExperience">Experience</a>
+        <a class="pill" href="#education" id="navEducation">Education</a>
+        <a class="pill" href="#contact" id="navContact">Contact</a>
+        <button class="lang-btn" id="langToggle">中文</button>
       </div>
     </div>
+  </nav>
 
-    <h1>Xueying Liu</h1>
-    <p id="subtitle">AI Product & Marketing Analytics</p>
-
-    <h2 id="about-title">About</h2>
-    <p id="about-text">
-      MSc Marketing Analytics at EDHEC. Interested in AI product, CRM, and data-driven growth.
-    </p>
-
-    <h2 id="project-title">Projects</h2>
-    <div class="projects">
-
-      <div class="card">
-        <h3>AI Customer Service Agent</h3>
-        <p class="desc-en">Multi-agent system for FAQ, order tracking and recommendation.</p>
-        <p class="desc-cn" style="display:none">设计多Agent客服系统，实现FAQ、订单查询与推荐功能。</p>
+  <main class="container">
+    <section class="hero">
+      <div class="hero-grid">
+        <div class="fade">
+          <div class="eyebrow" id="eyebrow">Portfolio</div>
+          <h1>Xueying Liu</h1>
+          <div class="subtitle" id="subtitle">
+            AI Product, Growth, and Marketing Analytics — turning user signals into structured insights and practical decisions.
+          </div>
+          <div class="hero-links">
+            <a class="cta" href="mailto:xueying.liu@edhec.com" id="emailBtn">Email Me</a>
+            <a class="ghost" href="https://github.com/liuxueying2828-maker" target="_blank">GitHub</a>
+            <a class="ghost" href="#" id="notionBtn">Notion</a>
+          </div>
+        </div>
+        <div class="hero-side fade d1">
+          <p id="side1">Based in France / China</p>
+          <p id="side2">MSc in Marketing Analytics, EDHEC</p>
+          <p id="side3">Interested in AI Product, CRM, and Data-driven Growth</p>
+        </div>
       </div>
+    </section>
 
-      <div class="card">
-        <h3>TikTok Comment Analysis (LLM)</h3>
-        <p class="desc-en">LLM API used to extract sentiment and insights from user comments.</p>
-        <p class="desc-cn" style="display:none">使用LLM分析评论情绪并提取用户洞察。</p>
+    <div class="divider"></div>
+
+    <section class="section fade d1">
+      <div class="section-head">
+        <h2 class="section-title" id="aboutTitle">About</h2>
       </div>
-
-      <div class="card">
-        <h3>CRM Segmentation</h3>
-        <p class="desc-en">RFM and CLV modeling for lifecycle analysis.</p>
-        <p class="desc-cn" style="display:none">基于RFM和CLV进行客户生命周期分析。</p>
+      <div class="panel about" id="aboutText">
+        I am currently pursuing an MSc in Marketing Analytics at EDHEC Business School. My work sits at the intersection of AI applications, product thinking, and customer insight — from campaign performance analysis to LLM-based comment understanding and multi-agent service design.
       </div>
+    </section>
 
-    </div>
+    <section class="section" id="projects">
+      <div class="section-head fade d1">
+        <h2 class="section-title" id="projectsTitle">Selected Projects</h2>
+        <div class="section-note" id="projectsNote">A mix of AI application, product logic, and data analysis.</div>
+      </div>
+      <div class="project-grid">
+        <article class="project-card fade d1">
+          <div>
+            <div class="meta" id="p1meta">AI Product Design</div>
+            <h3 id="p1title">AI Customer Service Agent</h3>
+            <p id="p1desc">Designed a multi-agent workflow covering FAQ, order tracking, and recommendation logic, with structured routing and response design.</p>
+          </div>
+          <div class="tags">
+            <span class="tag">Multi-agent</span>
+            <span class="tag">AI workflow</span>
+            <span class="tag">User journey</span>
+          </div>
+        </article>
 
-    <h2 id="contact-title">Contact</h2>
-    <p>Email: xueying.liu@edhec.com</p>
+        <article class="project-card fade d2">
+          <div>
+            <div class="meta" id="p2meta">LLM Application</div>
+            <h3 id="p2title">TikTok Comment Analysis</h3>
+            <p id="p2desc">Used LLM API and NLP methods to analyze user sentiment and extract key themes from comments, turning raw feedback into product insight.</p>
+          </div>
+          <div class="tags">
+            <span class="tag">LLM API</span>
+            <span class="tag">NLP</span>
+            <span class="tag">Insight mining</span>
+          </div>
+        </article>
 
-  </div>
+        <article class="project-card fade d3">
+          <div>
+            <div class="meta" id="p3meta">CRM Analytics</div>
+            <h3 id="p3title">CRM Segmentation & CLV</h3>
+            <p id="p3desc">Built RFM segmentation and lifetime value models to identify high-value and churn-risk users and support retention strategy.</p>
+          </div>
+          <div class="tags">
+            <span class="tag">RFM</span>
+            <span class="tag">CLV</span>
+            <span class="tag">Retention</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="experience">
+      <div class="section-head fade d1">
+        <h2 class="section-title" id="experienceTitle">Work Experience</h2>
+        <div class="section-note" id="experienceNote">Campaign analysis, digital growth, and market intelligence across China and France.</div>
+      </div>
+      <div class="experience-list">
+        <article class="item fade d1">
+          <div class="item-top">
+            <div>
+              <div class="item-title" id="e1title">Stagiaire Analyste Operational</div>
+              <div class="item-company" id="e1company">Blue Focus</div>
+            </div>
+            <div class="item-date" id="e1date">Apr 2025 – Jul 2025</div>
+          </div>
+          <div class="chips">
+            <span class="chip" id="e1chip1">Shanghai, China</span>
+            <span class="chip" id="e1chip2">Internship</span>
+          </div>
+          <ul>
+            <li id="e1b1">Monitored and analyzed the performance of multi-platform digital campaigns for international clients, tracking CPM, CTR, and engagement to identify optimization opportunities.</li>
+            <li id="e1b2">Identified performance levers including content formats, creator profiles, and posting timing, and proposed adjustments to improve reach and engagement.</li>
+            <li id="e1b3">Collaborated with account managers, clients, and creator networks to refine campaign briefs and continuously adjust media allocation based on performance data.</li>
+            <li id="e1b4">Designed Excel dashboards and comparative analyses across creators, formats, and time slots to support data-driven budget allocation.</li>
+            <li id="e1b5">Supported the optimization of campaign budgets ranging from $10K to $100K and contributed to a U.S. pre-launch campaign achieving 3.5% CTR and 9% engagement.</li>
+          </ul>
+        </article>
+
+        <article class="item fade d2">
+          <div class="item-top">
+            <div>
+              <div class="item-title" id="e2title">Apprentie Analyste Marketing Digital</div>
+              <div class="item-company" id="e2company">Pharmacie du Polygone</div>
+            </div>
+            <div class="item-date" id="e2date">Jul 2024 – Dec 2024</div>
+          </div>
+          <div class="chips">
+            <span class="chip" id="e2chip1">Montpellier, France</span>
+            <span class="chip" id="e2chip2">Full-Time</span>
+          </div>
+          <ul>
+            <li id="e2b1">Managed and monitored brand accounts on TikTok, Instagram, and Rednote, planning bilingual content to support international visibility and audience engagement.</li>
+            <li id="e2b2">Developed and executed a bilingual social media strategy, growing the community from 2,000 to 5,000 followers through optimized content formats and posting frequency.</li>
+            <li id="e2b3">Analyzed the conversion funnel of livestream campaigns on WeChat and Douyin, identifying drop-off points between viewer engagement and purchase.</li>
+            <li id="e2b4">Optimized livestream sales scripts and product presentation flow, improving clarity of product benefits and call-to-action structure.</li>
+            <li id="e2b5">Implemented data-driven adjustments that increased the conversion rate of Chinese customer orders by 15% during livestream campaigns.</li>
+          </ul>
+        </article>
+
+        <article class="item fade d3">
+          <div class="item-top">
+            <div>
+              <div class="item-title" id="e3title">Stagiaire Consultante Stratégique</div>
+              <div class="item-company" id="e3company">Quest Adventure Consulting</div>
+            </div>
+            <div class="item-date" id="e3date">May 2024 – Jul 2024</div>
+          </div>
+          <div class="chips">
+            <span class="chip" id="e3chip1">Beijing, China</span>
+            <span class="chip" id="e3chip2">Full-Time</span>
+          </div>
+          <ul>
+            <li id="e3b1">Collected and synthesized market intelligence from industry reports, public databases, and competitor communications to support strategic recommendations.</li>
+            <li id="e3b2">Conducted market and competitor landscape analyses, identifying key trends in product positioning, pricing strategies, and digital marketing approaches.</li>
+            <li id="e3b3">Built competitive analysis frameworks combining qualitative insights and quantitative indicators to identify opportunities and market gaps.</li>
+            <li id="e3b4">Structured findings into comparative analysis reports and visual summaries, enabling consultants and clients to quickly understand strategic directions.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="education">
+      <div class="section-head fade d1">
+        <h2 class="section-title" id="educationTitle">Education & Skills</h2>
+        <div class="section-note" id="educationNote">Academic background in marketing analytics, digital marketing, and multilingual communication.</div>
+      </div>
+      <div class="two-col">
+        <div class="education-list">
+          <article class="edu-item fade d1">
+            <div class="edu-top">
+              <div>
+                <div class="edu-name" id="ed1name">EDHEC Business School</div>
+                <div class="edu-place" id="ed1place">MSc in Marketing Analytics</div>
+              </div>
+              <div class="edu-date" id="ed1date">Jul 2025 – Dec 2026</div>
+            </div>
+            <p class="edu-desc" id="ed1desc">France</p>
+          </article>
+
+          <article class="edu-item fade d2">
+            <div class="edu-top">
+              <div>
+                <div class="edu-name" id="ed2name">IPST-CNAM Business School</div>
+                <div class="edu-place" id="ed2place">Master 1 in Digital Marketing</div>
+              </div>
+              <div class="edu-date" id="ed2date">Sep 2024 – Dec 2024</div>
+            </div>
+            <p class="edu-desc" id="ed2desc">France</p>
+          </article>
+
+          <article class="edu-item fade d3">
+            <div class="edu-top">
+              <div>
+                <div class="edu-name" id="ed3name">University Paul-Valéry Montpellier 3</div>
+                <div class="edu-place" id="ed3place">French Language Studies</div>
+              </div>
+              <div class="edu-date" id="ed3date">Sep 2022 – Jun 2024</div>
+            </div>
+            <p class="edu-desc" id="ed3desc">Montpellier, France</p>
+          </article>
+
+          <article class="edu-item fade d4">
+            <div class="edu-top">
+              <div>
+                <div class="edu-name" id="ed4name">Shanghai University of Finance and Economics</div>
+                <div class="edu-place" id="ed4place">Bachelor in Marketing</div>
+              </div>
+              <div class="edu-date" id="ed4date">Sep 2018 – Jun 2022</div>
+            </div>
+            <p class="edu-desc" id="ed4desc">Shanghai, China</p>
+          </article>
+        </div>
+
+        <div class="panel fade d2">
+          <div class="item-title" id="skillsTitle">Core Skills</div>
+          <div class="skills">
+            <span class="skill">Product Thinking</span>
+            <span class="skill">AI Applications</span>
+            <span class="skill">Python</span>
+            <span class="skill">SQL</span>
+            <span class="skill">Excel / VBA</span>
+            <span class="skill">Power BI</span>
+            <span class="skill">Tableau</span>
+            <span class="skill">Prompt Engineering</span>
+            <span class="skill">NLP</span>
+            <span class="skill">CRM</span>
+            <span class="skill">Segmentation</span>
+            <span class="skill">French C1</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section fade d2" id="contact">
+      <div class="section-head">
+        <h2 class="section-title" id="contactTitle">Contact</h2>
+      </div>
+      <div class="panel contact-box">
+        <div class="contact-main" id="contactMain">Open to opportunities in AI product, growth, CRM, and analytics.</div>
+        <div class="contact-sub">Email: <a href="mailto:xueying.liu@edhec.com">xueying.liu@edhec.com</a></div>
+      </div>
+    </section>
+
+    <footer class="footer" id="footerText">
+      Minimal portfolio website for applications in AI product and marketing analytics.
+    </footer>
+  </main>
 
   <script>
-    // Animation
-    const cards = document.querySelectorAll('.card');
-    window.addEventListener('load', () => {
-      cards.forEach((card, i) => {
-        setTimeout(() => card.classList.add('show'), i * 150);
+    let isChinese = false;
+
+    const content = {
+      en: {
+        navProjects: 'Projects',
+        navExperience: 'Experience',
+        navEducation: 'Education',
+        navContact: 'Contact',
+        langToggle: '中文',
+        eyebrow: 'Portfolio',
+        subtitle: 'AI Product, Growth, and Marketing Analytics — turning user signals into structured insights and practical decisions.',
+        emailBtn: 'Email Me',
+        notionBtn: 'Notion',
+        side1: 'Based in France / China',
+        side2: 'MSc in Marketing Analytics, EDHEC',
+        side3: 'Interested in AI Product, CRM, and Data-driven Growth',
+        aboutTitle: 'About',
+        aboutText: 'I am currently pursuing an MSc in Marketing Analytics at EDHEC Business School. My work sits at the intersection of AI applications, product thinking, and customer insight — from campaign performance analysis to LLM-based comment understanding and multi-agent service design.',
+        projectsTitle: 'Selected Projects',
+        projectsNote: 'A mix of AI application, product logic, and data analysis.',
+        p1meta: 'AI Product Design',
+        p1title: 'AI Customer Service Agent',
+        p1desc: 'Designed a multi-agent workflow covering FAQ, order tracking, and recommendation logic, with structured routing and response design.',
+        p2meta: 'LLM Application',
+        p2title: 'TikTok Comment Analysis',
+        p2desc: 'Used LLM API and NLP methods to analyze user sentiment and extract key themes from comments, turning raw feedback into product insight.',
+        p3meta: 'CRM Analytics',
+        p3title: 'CRM Segmentation & CLV',
+        p3desc: 'Built RFM segmentation and lifetime value models to identify high-value and churn-risk users and support retention strategy.',
+        experienceTitle: 'Work Experience',
+        experienceNote: 'Campaign analysis, digital growth, and market intelligence across China and France.',
+        e1title: 'Stagiaire Analyste Operational',
+        e1company: 'Blue Focus',
+        e1date: 'Apr 2025 – Jul 2025',
+        e1chip1: 'Shanghai, China',
+        e1chip2: 'Internship',
+        e1b1: 'Monitored and analyzed the performance of multi-platform digital campaigns for international clients, tracking CPM, CTR, and engagement to identify optimization opportunities.',
+        e1b2: 'Identified performance levers including content formats, creator profiles, and posting timing, and proposed adjustments to improve reach and engagement.',
+        e1b3: 'Collaborated with account managers, clients, and creator networks to refine campaign briefs and continuously adjust media allocation based on performance data.',
+        e1b4: 'Designed Excel dashboards and comparative analyses across creators, formats, and time slots to support data-driven budget allocation.',
+        e1b5: 'Supported the optimization of campaign budgets ranging from $10K to $100K and contributed to a U.S. pre-launch campaign achieving 3.5% CTR and 9% engagement.',
+        e2title: 'Apprentie Analyste Marketing Digital',
+        e2company: 'Pharmacie du Polygone',
+        e2date: 'Jul 2024 – Dec 2024',
+        e2chip1: 'Montpellier, France',
+        e2chip2: 'Full-Time',
+        e2b1: 'Managed and monitored brand accounts on TikTok, Instagram, and Rednote, planning bilingual content to support international visibility and audience engagement.',
+        e2b2: 'Developed and executed a bilingual social media strategy, growing the community from 2,000 to 5,000 followers through optimized content formats and posting frequency.',
+        e2b3: 'Analyzed the conversion funnel of livestream campaigns on WeChat and Douyin, identifying drop-off points between viewer engagement and purchase.',
+        e2b4: 'Optimized livestream sales scripts and product presentation flow, improving clarity of product benefits and call-to-action structure.',
+        e2b5: 'Implemented data-driven adjustments that increased the conversion rate of Chinese customer orders by 15% during livestream campaigns.',
+        e3title: 'Stagiaire Consultante Stratégique',
+        e3company: 'Quest Adventure Consulting',
+        e3date: 'May 2024 – Jul 2024',
+        e3chip1: 'Beijing, China',
+        e3chip2: 'Full-Time',
+        e3b1: 'Collected and synthesized market intelligence from industry reports, public databases, and competitor communications to support strategic recommendations.',
+        e3b2: 'Conducted market and competitor landscape analyses, identifying key trends in product positioning, pricing strategies, and digital marketing approaches.',
+        e3b3: 'Built competitive analysis frameworks combining qualitative insights and quantitative indicators to identify opportunities and market gaps.',
+        e3b4: 'Structured findings into comparative analysis reports and visual summaries, enabling consultants and clients to quickly understand strategic directions.',
+        educationTitle: 'Education & Skills',
+        educationNote: 'Academic background in marketing analytics, digital marketing, and multilingual communication.',
+        ed1name: 'EDHEC Business School',
+        ed1place: 'MSc in Marketing Analytics',
+        ed1date: 'Jul 2025 – Dec 2026',
+        ed1desc: 'France',
+        ed2name: 'IPST-CNAM Business School',
+        ed2place: 'Master 1 in Digital Marketing',
+        ed2date: 'Sep 2024 – Dec 2024',
+        ed2desc: 'France',
+        ed3name: 'University Paul-Valéry Montpellier 3',
+        ed3place: 'French Language Studies',
+        ed3date: 'Sep 2022 – Jun 2024',
+        ed3desc: 'Montpellier, France',
+        ed4name: 'Shanghai University of Finance and Economics',
+        ed4place: 'Bachelor in Marketing',
+        ed4date: 'Sep 2018 – Jun 2022',
+        ed4desc: 'Shanghai, China',
+        skillsTitle: 'Core Skills',
+        contactTitle: 'Contact',
+        contactMain: 'Open to opportunities in AI product, growth, CRM, and analytics.',
+        footerText: 'Minimal portfolio website for applications in AI product and marketing analytics.'
+      },
+      zh: {
+        navProjects: '项目',
+        navExperience: '经历',
+        navEducation: '教育',
+        navContact: '联系',
+        langToggle: 'EN',
+        eyebrow: '作品集',
+        subtitle: 'AI 产品、增长与营销分析方向，擅长将用户信号转化为结构化洞察与可执行决策。',
+        emailBtn: '联系我',
+        notionBtn: 'Notion',
+        side1: '常驻法国 / 中国',
+        side2: 'EDHEC 市场营销分析硕士',
+        side3: '关注 AI 产品、CRM 与数据驱动增长',
+        aboutTitle: '关于我',
+        aboutText: '我目前就读于 EDHEC 商学院市场营销分析硕士项目。我的经历位于 AI 应用、产品思维与用户洞察的交叉点，涵盖营销效果分析、基于 LLM 的评论理解以及多 Agent 服务设计。',
+        projectsTitle: '精选项目',
+        projectsNote: '结合 AI 应用、产品逻辑与数据分析能力。',
+        p1meta: 'AI 产品设计',
+        p1title: 'AI 客服智能体',
+        p1desc: '设计了覆盖 FAQ、订单查询与推荐逻辑的多 Agent 工作流，梳理了清晰的路由与响应机制。',
+        p2meta: 'LLM 应用',
+        p2title: 'TikTok 评论分析',
+        p2desc: '结合 LLM API 与 NLP 方法分析用户情绪与评论主题，将原始反馈转化为可用于产品优化的洞察。',
+        p3meta: 'CRM 分析',
+        p3title: '用户分群与 CLV',
+        p3desc: '构建 RFM 分群与用户终身价值模型，识别高价值与流失风险用户，支持留存策略设计。',
+        experienceTitle: '工作经历',
+        experienceNote: '覆盖中法市场的投放分析、数字增长与市场研究经历。',
+        e1title: '运营分析实习生',
+        e1company: '蓝色光标',
+        e1date: '2025.04 – 2025.07',
+        e1chip1: '上海，中国',
+        e1chip2: '实习',
+        e1b1: '监测并分析国际客户多平台数字投放效果，跟踪 CPM、CTR、互动率等核心指标，识别优化机会。',
+        e1b2: '从内容形式、达人类型与发布时间等维度定位效果杠杆，提出提升曝光与互动的调整建议。',
+        e1b3: '与客户经理、客户方及 MCN 协同沟通，根据数据表现持续优化 brief 与预算分配。',
+        e1b4: '设计 Excel 数据看板与横向对比分析，帮助团队按创作者、内容形式与时段进行数据驱动的预算配置。',
+        e1b5: '参与 1 万到 10 万美元预算项目优化，并支持美国预热项目取得 3.5% CTR 和 9% engagement。',
+        e2title: '数字营销与数据分析学徒',
+        e2company: 'Pharmacie du Polygone',
+        e2date: '2024.07 – 2024.12',
+        e2chip1: '蒙彼利埃，法国',
+        e2chip2: '全职',
+        e2b1: '负责 TikTok、Instagram 与小红书账号运营与监测，策划中英双语内容以提升品牌曝光与互动。',
+        e2b2: '制定并执行双语社媒策略，通过内容形式与发布频率优化，将社区规模从 2,000 提升至 5,000。',
+        e2b3: '分析微信与抖音直播转化漏斗，识别从观看互动到下单之间的关键流失点。',
+        e2b4: '优化直播销售话术与产品呈现流程，提升卖点表达清晰度与行动引导效果。',
+        e2b5: '通过数据驱动调整，使中国客户订单转化率在直播场景中提升 15%。',
+        e3title: '战略咨询实习生',
+        e3company: 'Quest Adventure Consulting',
+        e3date: '2024.05 – 2024.07',
+        e3chip1: '北京，中国',
+        e3chip2: '全职',
+        e3b1: '从行业报告、公开数据库与竞品资料中收集并整合市场信息，为客户战略建议提供支持。',
+        e3b2: '开展市场与竞品格局分析，识别产品定位、定价策略与数字营销路径中的关键趋势。',
+        e3b3: '搭建结合定性洞察与定量指标的竞品分析框架，帮助识别机会点与市场空白。',
+        e3b4: '将发现整理为对比报告与可视化摘要，帮助顾问与客户快速理解战略方向。',
+        educationTitle: '教育背景与技能',
+        educationNote: '市场分析、数字营销与多语种背景相结合。',
+        ed1name: 'EDHEC 商学院',
+        ed1place: '市场营销分析硕士',
+        ed1date: '2025.07 – 2026.12',
+        ed1desc: '法国',
+        ed2name: 'IPST-CNAM 商学院',
+        ed2place: '数字营销硕士 M1',
+        ed2date: '2024.09 – 2024.12',
+        ed2desc: '法国',
+        ed3name: '蒙彼利埃第三大学',
+        ed3place: '法语学习',
+        ed3date: '2022.09 – 2024.06',
+        ed3desc: '蒙彼利埃，法国',
+        ed4name: '上海财经大学',
+        ed4place: '市场营销本科',
+        ed4date: '2018.09 – 2022.06',
+        ed4desc: '上海，中国',
+        skillsTitle: '核心技能',
+        contactTitle: '联系',
+        contactMain: '期待 AI 产品、增长、CRM 与数据分析相关机会。',
+        footerText: '用于 AI 产品与营销分析岗位申请的极简个人网站。'
+      }
+    };
+
+    const ids = Object.keys(content.en);
+
+    function updateLanguage() {
+      const lang = isChinese ? 'zh' : 'en';
+      ids.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = content[lang][id];
       });
-    });
-
-    // Language toggle
-    let isCN = false;
-    function toggleLang() {
-      isCN = !isCN;
-
-      document.getElementById('subtitle').innerText = isCN
-        ? 'AI产品 & 数据分析'
-        : 'AI Product & Marketing Analytics';
-
-      document.getElementById('about-title').innerText = isCN ? '关于我' : 'About';
-      document.getElementById('project-title').innerText = isCN ? '项目' : 'Projects';
-      document.getElementById('contact-title').innerText = isCN ? '联系方式' : 'Contact';
-
-      document.getElementById('about-text').innerText = isCN
-        ? 'EDHEC市场分析硕士，专注AI产品、CRM和数据驱动增长。'
-        : 'MSc Marketing Analytics at EDHEC. Interested in AI product, CRM, and data-driven growth.';
-
-      document.querySelectorAll('.desc-en').forEach(e => e.style.display = isCN ? 'none' : 'block');
-      document.querySelectorAll('.desc-cn').forEach(e => e.style.display = isCN ? 'block' : 'none');
     }
-  </script>
 
+    document.getElementById('langToggle').addEventListener('click', () => {
+      isChinese = !isChinese;
+      updateLanguage();
+    });
+  </script>
 </body>
 </html>
