@@ -8,6 +8,26 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
+    .hero-title {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      filter: grayscale(100%);
+      transition: all 0.3s ease;
+    }
+
+    .avatar:hover {
+      filter: grayscale(0%);
+      transform: scale(1.05);
+    }    
+    
     :root {
       --bg: #f5f5f3;
       --surface: rgba(255,255,255,0.72);
@@ -477,7 +497,10 @@
       <div class="hero-grid">
         <div class="fade">
           <div class="eyebrow" id="eyebrow">Portfolio</div>
-          <h1>Xueying Liu</h1>
+          <div class="hero-title">
+            <img src="profile.png" class="avatar">
+            <h1>Xueying Liu</h1>
+          </div>
           <div class="subtitle" id="subtitle">
             AI Product, Growth, and Marketing Analytics — turning user signals into structured insights and practical decisions.
           </div>
