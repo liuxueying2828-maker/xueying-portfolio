@@ -8,26 +8,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    .hero-title {
-      display: flex;
-      align-items: center;
-      gap: 32px;
-    }
-
-     .avatar {
-        width: 140px;
-        aspect-ratio: 3 / 4;
-        border-radius: 20px;
-        object-fit: cover;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        box-shadow: 0 8px 30px rgba(0,0,0,0.08);
-      }
-
-    .avatar:hover {
-      transform: scale(1.03);
-      box-shadow: 0 12px 40px rgba(0,0,0,0.12);
-    }  
-    
     :root {
       --bg: #f5f5f3;
       --surface: rgba(255,255,255,0.72);
@@ -43,7 +23,6 @@
     }
 
     * { box-sizing: border-box; }
-
     html { scroll-behavior: smooth; }
 
     body {
@@ -100,7 +79,8 @@
     .pill,
     .lang-btn,
     .cta,
-    .ghost {
+    .ghost,
+    .contact-link {
       border: 1px solid var(--line);
       background: rgba(255,255,255,0.62);
       color: var(--text);
@@ -110,12 +90,16 @@
       font-weight: 500;
       transition: all 0.22s ease;
       cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .pill:hover,
     .lang-btn:hover,
     .cta:hover,
-    .ghost:hover {
+    .ghost:hover,
+    .contact-link:hover {
       background: var(--surface-strong);
       box-shadow: var(--shadow);
       transform: translateY(-1px);
@@ -162,6 +146,33 @@
       align-items: end;
     }
 
+    .hero-title {
+      display: flex;
+      align-items: flex-start;
+      gap: 32px;
+    }
+
+    .avatar {
+      width: 140px;
+      aspect-ratio: 3 / 4;
+      border-radius: 20px;
+      object-fit: cover;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+      flex-shrink: 0;
+    }
+
+    .avatar:hover {
+      transform: scale(1.03);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+    }
+
+    .title-sub {
+      margin-top: 8px;
+      color: #6d7278;
+      font-size: 16px;
+    }
+
     .subtitle {
       margin-top: 22px;
       max-width: 760px;
@@ -192,6 +203,10 @@
       font-size: 14px;
     }
 
+    .hero-side p:last-child {
+      margin-bottom: 0;
+    }
+
     .section {
       padding: 28px 0 8px;
     }
@@ -219,7 +234,7 @@
     .section-note {
       font-size: 14px;
       color: var(--muted);
-      max-width: 500px;
+      max-width: 520px;
     }
 
     .divider {
@@ -242,28 +257,43 @@
       letter-spacing: -0.015em;
     }
 
+    .about p {
+      margin: 0 0 16px;
+    }
+
+    .about p:last-child {
+      margin-bottom: 0;
+    }
+
     .project-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 16px;
     }
 
-    .project-card {
+    .project-card,
+    .item,
+    .edu-item,
+    .personal-card {
       background: var(--surface);
       border: 1px solid var(--line);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
       padding: 22px;
-      min-height: 282px;
+      transition: transform 0.28s ease, background 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
+    }
+
+    .project-card {
+      min-height: 350px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      transition: transform 0.28s ease, background 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
     }
 
     .project-card:hover,
     .item:hover,
-    .edu-item:hover {
+    .edu-item:hover,
+    .personal-card:hover {
       transform: translateY(-4px);
       background: #f0f0ed;
       border-color: var(--line-strong);
@@ -281,7 +311,8 @@
 
     .project-card h3,
     .item-title,
-    .edu-name {
+    .edu-name,
+    .personal-title {
       margin: 0 0 10px;
       font-size: 22px;
       line-height: 1.12;
@@ -291,20 +322,40 @@
 
     .project-card p,
     .item-desc,
-    .edu-desc {
+    .edu-desc,
+    .personal-desc {
       margin: 0;
       font-size: 15px;
       color: #3d4349;
     }
 
-    .tags {
+    .project-details {
+      display: none;
+      margin-top: 16px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(17,19,21,0.08);
+    }
+
+    .project-details p {
+      margin: 0 0 10px;
+      font-size: 14px;
+      color: #374047;
+    }
+
+    .project-details p:last-child {
+      margin-bottom: 0;
+    }
+
+    .tags,
+    .contact-links {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
       margin-top: 18px;
     }
 
-    .tag {
+    .tag,
+    .skill {
       padding: 7px 11px;
       border: 1px solid var(--line);
       border-radius: 999px;
@@ -314,19 +365,10 @@
     }
 
     .experience-list,
-    .education-list {
+    .education-list,
+    .personal-grid {
       display: grid;
       gap: 14px;
-    }
-
-    .item,
-    .edu-item {
-      background: var(--surface);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 22px;
-      transition: transform 0.28s ease, background 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
     }
 
     .item-top,
@@ -394,15 +436,6 @@
       margin-top: 14px;
     }
 
-    .skill {
-      padding: 10px 14px;
-      border-radius: 999px;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,0.76);
-      font-size: 13px;
-      color: #3e444a;
-    }
-
     .contact-box {
       display: flex;
       flex-direction: column;
@@ -447,7 +480,8 @@
     @media (max-width: 980px) {
       .hero-grid,
       .project-grid,
-      .two-col {
+      .two-col,
+      .personal-grid {
         grid-template-columns: 1fr;
       }
     }
@@ -455,7 +489,8 @@
     @media (max-width: 640px) {
       .nav-inner,
       .item-top,
-      .edu-top {
+      .edu-top,
+      .hero-title {
         flex-direction: column;
         align-items: flex-start;
       }
@@ -472,8 +507,13 @@
       .item,
       .edu-item,
       .project-card,
-      .hero-side {
+      .hero-side,
+      .personal-card {
         padding: 20px;
+      }
+
+      .avatar {
+        width: 120px;
       }
     }
   </style>
@@ -481,10 +521,11 @@
 <body>
   <nav class="nav">
     <div class="container nav-inner">
-      <div class="brand">Xueying Liu</div>
+      <div class="brand" id="brandName">Xueying Liu</div>
       <div class="nav-right">
         <a class="pill" href="#projects" id="navProjects">Projects</a>
         <a class="pill" href="#experience" id="navExperience">Experience</a>
+        <a class="pill" href="#personal" id="navPersonal">More About Me</a>
         <a class="pill" href="#education" id="navEducation">Education</a>
         <a class="pill" href="#contact" id="navContact">Contact</a>
         <button class="lang-btn" id="langToggle">中文</button>
@@ -497,74 +538,102 @@
       <div class="hero-grid">
         <div class="fade">
           <div class="eyebrow" id="eyebrow">Portfolio</div>
-          <div class="hero-title" style="display: flex; align-items: flex-start; gap: 32px;">
-            <img src="profile.png" class="avatar" />
-          
+
+          <div class="hero-title">
+            <img src="profile.png" class="avatar" alt="Xueying Liu profile photo" />
             <div>
-              <h1 style="margin: 0;">Xueying Liu</h1>
-              <div style="margin-top: 8px; color: #6d7278; font-size: 16px;">
-                AI Product · Marketing Analytics
-              </div>
+              <h1 id="nameTitle">Xueying Liu</h1>
+              <div class="title-sub" id="titleSub">AI Product · Marketing Analytics</div>
             </div>
           </div>
 
           <div class="subtitle" id="subtitle">
-            AI Product, Growth, and Marketing Analytics — turning user signals into structured insights and practical decisions.
+            Building at the intersection of AI applications, CRM, and marketing analytics — turning user signals into actionable product and growth decisions.
           </div>
+
           <div class="hero-links">
             <a class="cta" href="mailto:xueying.liu@edhec.com" id="emailBtn">Email Me</a>
-            <a class="ghost" href="https://github.com/liuxueying2828-maker" target="_blank">GitHub</a>
-            <a class="ghost" href="#" id="notionBtn">Notion</a>
+            <a class="ghost" href="resume.pdf" target="_blank" id="resumeBtn">View Resume</a>
           </div>
         </div>
+
         <div class="hero-side fade d1">
           <p id="side1">Based in France / China</p>
           <p id="side2">MSc in Marketing Analytics, EDHEC</p>
           <p id="side3">Interested in AI Product, CRM, and Data-driven Growth</p>
+          <p id="side4">Chinese · English · French</p>
         </div>
       </div>
     </section>
 
     <div class="divider"></div>
 
-    <section class="section fade d1">
+    <section class="section fade d1" id="about">
       <div class="section-head">
         <h2 class="section-title" id="aboutTitle">About</h2>
       </div>
-      <div class="panel about" id="aboutText">
-        I am currently pursuing an MSc in Marketing Analytics at EDHEC Business School. My work sits at the intersection of AI applications, product thinking, and customer insight — from campaign performance analysis to LLM-based comment understanding and multi-agent service design.
+      <div class="panel about" id="aboutTextWrap">
+        <p id="aboutText1">
+          I am currently pursuing an MSc in Marketing Analytics at EDHEC Business School. My work focuses on how AI applications, customer insight, and product thinking can work together to improve user experience and business decisions.
+        </p>
+        <p id="aboutText2">
+          With experience across campaign analytics, CRM strategy, social growth, and LLM-based user insight projects, I enjoy turning messy signals into structured understanding — whether through dashboards, segmentation models, or AI-powered workflows.
+        </p>
       </div>
     </section>
 
     <section class="section" id="projects">
       <div class="section-head fade d1">
         <h2 class="section-title" id="projectsTitle">Selected Projects</h2>
-        <div class="section-note" id="projectsNote">A mix of AI application, product logic, and data analysis.</div>
+        <div class="section-note" id="projectsNote">Case-based work across AI applications, user insight, and CRM analytics.</div>
       </div>
+
       <div class="project-grid">
         <article class="project-card fade d1">
           <div>
             <div class="meta" id="p1meta">AI Product Design</div>
             <h3 id="p1title">AI Customer Service Agent</h3>
-            <p id="p1desc">Designed a multi-agent workflow covering FAQ, order tracking, and recommendation logic, with structured routing and response design.</p>
+            <p id="p1desc">Designed a multi-agent customer service workflow covering FAQ, order tracking, and recommendation scenarios, with a focus on intent routing and scalable support logic.</p>
+
+            <div class="project-details" id="p1details">
+              <p id="p1d1"><strong>Problem:</strong> Customer requests were fragmented across multiple support scenarios.</p>
+              <p id="p1d2"><strong>Role:</strong> Designed the workflow, service logic, and response structure.</p>
+              <p id="p1d3"><strong>Approach:</strong> Mapped user intents and built a multi-agent flow with scenario-based routing.</p>
+              <p id="p1d4"><strong>Output:</strong> Created a clearer and more scalable support structure for relevant responses.</p>
+            </div>
           </div>
-          <div class="tags">
-            <span class="tag">Multi-agent</span>
-            <span class="tag">AI workflow</span>
-            <span class="tag">User journey</span>
+
+          <div>
+            <div class="tags">
+              <span class="tag">Multi-agent</span>
+              <span class="tag">AI workflow</span>
+              <span class="tag">User journey</span>
+            </div>
+            <button class="ghost" style="margin-top: 14px;" onclick="toggleDetails('p1details', this)" id="p1btn">View Details</button>
           </div>
         </article>
 
         <article class="project-card fade d2">
           <div>
             <div class="meta" id="p2meta">LLM Application</div>
-            <h3 id="p2title">TikTok Comment Analysis</h3>
-            <p id="p2desc">Used LLM API and NLP methods to analyze user sentiment and extract key themes from comments, turning raw feedback into product insight.</p>
+            <h3 id="p2title">Steam Comment Analysis</h3>
+            <p id="p2desc">Built an LLM-assisted comment analysis workflow to classify sentiment, identify recurring themes, and turn unstructured Steam feedback into actionable user insight.</p>
+
+            <div class="project-details" id="p2details">
+              <p id="p2d1"><strong>Problem:</strong> Raw user comments were noisy and difficult to interpret at scale.</p>
+              <p id="p2d2"><strong>Role:</strong> Designed the analysis logic and insight extraction process.</p>
+              <p id="p2d3"><strong>Approach:</strong> Combined LLM API, NLP preprocessing, sentiment classification, and topic clustering.</p>
+              <p id="p2d4"><strong>Output:</strong> Transformed user comments into structured signals for content and product understanding.</p>
+            </div>
           </div>
-          <div class="tags">
-            <span class="tag">LLM API</span>
-            <span class="tag">NLP</span>
-            <span class="tag">Insight mining</span>
+
+          <div>
+            <div class="tags">
+              <span class="tag">LLM API</span>
+              <span class="tag">NLP</span>
+              <span class="tag">Insight mining</span>
+            </div>
+            <button class="ghost" style="margin-top: 14px;" onclick="toggleDetails('p2details', this)" id="p2btn">View Details</button>
           </div>
         </article>
 
@@ -572,12 +641,23 @@
           <div>
             <div class="meta" id="p3meta">CRM Analytics</div>
             <h3 id="p3title">CRM Segmentation & CLV</h3>
-            <p id="p3desc">Built RFM segmentation and lifetime value models to identify high-value and churn-risk users and support retention strategy.</p>
+            <p id="p3desc">Developed RFM segmentation and CLV models to identify high-value, low-engagement, and churn-risk customer groups, supporting retention and lifecycle strategy.</p>
+
+            <div class="project-details" id="p3details">
+              <p id="p3d1"><strong>Problem:</strong> Customer behaviors were not clearly prioritized for retention action.</p>
+              <p id="p3d2"><strong>Role:</strong> Conducted segmentation and customer value modeling.</p>
+              <p id="p3d3"><strong>Approach:</strong> Used RFM analysis, BG/NBD, Gamma-Gamma, and CLV estimation.</p>
+              <p id="p3d4"><strong>Output:</strong> Identified priority customer segments and supported differentiated retention strategy.</p>
+            </div>
           </div>
-          <div class="tags">
-            <span class="tag">RFM</span>
-            <span class="tag">CLV</span>
-            <span class="tag">Retention</span>
+
+          <div>
+            <div class="tags">
+              <span class="tag">RFM</span>
+              <span class="tag">CLV</span>
+              <span class="tag">Retention</span>
+            </div>
+            <button class="ghost" style="margin-top: 14px;" onclick="toggleDetails('p3details', this)" id="p3btn">View Details</button>
           </div>
         </article>
       </div>
@@ -588,11 +668,12 @@
         <h2 class="section-title" id="experienceTitle">Work Experience</h2>
         <div class="section-note" id="experienceNote">Campaign analysis, digital growth, and market intelligence across China and France.</div>
       </div>
+
       <div class="experience-list">
         <article class="item fade d1">
           <div class="item-top">
             <div>
-              <div class="item-title" id="e1title">Stagiaire Analyste Operational</div>
+              <div class="item-title" id="e1title">Operations Analyst Intern</div>
               <div class="item-company" id="e1company">Blue Focus</div>
             </div>
             <div class="item-date" id="e1date">Apr 2025 – Jul 2025</div>
@@ -613,17 +694,17 @@
         <article class="item fade d2">
           <div class="item-top">
             <div>
-              <div class="item-title" id="e2title">Apprentie Analyste Marketing Digital</div>
+              <div class="item-title" id="e2title">Digital Marketing Analyst Apprentice</div>
               <div class="item-company" id="e2company">Pharmacie du Polygone</div>
             </div>
             <div class="item-date" id="e2date">Jul 2024 – Dec 2024</div>
           </div>
           <div class="chips">
             <span class="chip" id="e2chip1">Montpellier, France</span>
-            <span class="chip" id="e2chip2">Intership</span>
+            <span class="chip" id="e2chip2">Internship</span>
           </div>
           <ul>
-            <li id="e2b1">Managed and monitored brand accounts on TikTok, Instagram, and Rednote, planning bilingual content to support international visibility and audience engagement.</li>
+            <li id="e2b1">Managed and monitored brand accounts on Instagram and Rednote, planning bilingual content to support international visibility and audience engagement.</li>
             <li id="e2b2">Developed and executed a bilingual social media strategy, growing the community from 2,000 to 5,000 followers through optimized content formats and posting frequency.</li>
             <li id="e2b3">Analyzed the conversion funnel of livestream campaigns on WeChat and Douyin, identifying drop-off points between viewer engagement and purchase.</li>
             <li id="e2b4">Optimized livestream sales scripts and product presentation flow, improving clarity of product benefits and call-to-action structure.</li>
@@ -634,14 +715,14 @@
         <article class="item fade d3">
           <div class="item-top">
             <div>
-              <div class="item-title" id="e3title">Stagiaire Consultante Stratégique</div>
+              <div class="item-title" id="e3title">Strategy Consulting Intern</div>
               <div class="item-company" id="e3company">Quest Adventure Consulting</div>
             </div>
             <div class="item-date" id="e3date">May 2024 – Jul 2024</div>
           </div>
           <div class="chips">
             <span class="chip" id="e3chip1">Beijing, China</span>
-            <span class="chip" id="e3chip2">Intership</span>
+            <span class="chip" id="e3chip2">Internship</span>
           </div>
           <ul>
             <li id="e3b1">Collected and synthesized market intelligence from industry reports, public databases, and competitor communications to support strategic recommendations.</li>
@@ -653,11 +734,49 @@
       </div>
     </section>
 
+    <section class="section" id="personal">
+      <div class="section-head fade d1">
+        <h2 class="section-title" id="personalTitle">More About Me</h2>
+        <div class="section-note" id="personalNote">A few things that shape how I think, learn, and communicate.</div>
+      </div>
+
+      <div class="project-grid">
+        <article class="personal-card fade d1">
+          <div class="meta" id="personal1meta">Sport</div>
+          <div class="personal-title" id="personal1title">Bouldering</div>
+          <p class="personal-desc" id="personal1desc">I enjoy bouldering for its mix of patience, problem solving, and constant iteration — a mindset that also shapes how I approach work.</p>
+        </article>
+
+        <article class="personal-card fade d2">
+          <div class="meta" id="personal2meta">Languages</div>
+          <div class="personal-title" id="personal2title">Cross-cultural Communication</div>
+          <p class="personal-desc" id="personal2desc">Working across Chinese, English, and French has trained me to adapt ideas clearly for different people, contexts, and audiences.</p>
+        </article>
+
+        <article class="personal-card fade d3">
+          <div class="meta" id="personal3meta">Curiosity</div>
+          <div class="personal-title" id="personal3title">AI & Digital Storytelling</div>
+          <p class="personal-desc" id="personal3desc">I am interested in how AI tools, content, and user behavior interact — especially when insights can be turned into better experiences.</p>
+        </article>
+      </div>
+
+      <div class="panel fade d4" style="margin-top: 16px;">
+        <div class="item-title" id="socialTitle">Find Me Elsewhere</div>
+        <div class="contact-links">
+          <a class="contact-link" href="https://www.instagram.com/neige_xueying" target="_blank" id="socialInstagram">Instagram: @neige_xueying</a>
+          <a class="contact-link" href="https://www.linkedin.com/in/xueying-liu-profile" target="_blank" id="socialLinkedin">LinkedIn</a>
+          <span class="contact-link" id="socialXhs">Xiaohongshu: @Neige Limpide</span>
+          <span class="contact-link" id="socialWechat">WeChat: Available upon request</span>
+        </div>
+      </div>
+    </section>
+
     <section class="section" id="education">
       <div class="section-head fade d1">
         <h2 class="section-title" id="educationTitle">Education & Skills</h2>
         <div class="section-note" id="educationNote">Academic background in marketing analytics, digital marketing, and multilingual communication.</div>
       </div>
+
       <div class="two-col">
         <div class="education-list">
           <article class="edu-item fade d1">
@@ -731,7 +850,12 @@
       </div>
       <div class="panel contact-box">
         <div class="contact-main" id="contactMain">Open to opportunities in AI product, growth, CRM, and analytics.</div>
-        <div class="contact-sub">Email: <a href="mailto:xueying.liu@edhec.com">xueying.liu@edhec.com</a></div>
+        <div class="contact-sub" id="contactSub">Feel free to reach out for internships, projects, or collaborations.</div>
+        <div class="contact-links">
+          <a class="contact-link" href="mailto:xueying.liu@edhec.com">xueying.liu@edhec.com</a>
+          <a class="contact-link" href="resume.pdf" target="_blank" id="contactResume">Resume PDF</a>
+          <a class="contact-link" href="https://www.linkedin.com/in/xueying-liu-profile" target="_blank">LinkedIn</a>
+        </div>
       </div>
     </section>
 
@@ -743,38 +867,71 @@
   <script>
     let isChinese = false;
 
+    function toggleDetails(id, btn) {
+      const el = document.getElementById(id);
+      const isOpen = el.style.display === 'block';
+      el.style.display = isOpen ? 'none' : 'block';
+
+      const lang = isChinese ? 'zh' : 'en';
+      btn.textContent = isOpen ? content[lang].viewDetails : content[lang].hideDetails;
+    }
+
     const content = {
       en: {
+        brandName: 'Xueying Liu',
         nameTitle: 'Xueying Liu',
         titleSub: 'AI Product · Marketing Analytics',
         navProjects: 'Projects',
         navExperience: 'Experience',
+        navPersonal: 'More About Me',
         navEducation: 'Education',
         navContact: 'Contact',
         langToggle: '中文',
         eyebrow: 'Portfolio',
-        subtitle: 'AI Product, Growth, and Marketing Analytics — turning user signals into structured insights and practical decisions.',
+        subtitle: 'Building at the intersection of AI applications, CRM, and marketing analytics — turning user signals into actionable product and growth decisions.',
         emailBtn: 'Email Me',
-        notionBtn: 'Notion',
+        resumeBtn: 'View Resume',
         side1: 'Based in France / China',
         side2: 'MSc in Marketing Analytics, EDHEC',
         side3: 'Interested in AI Product, CRM, and Data-driven Growth',
+        side4: 'Chinese · English · French',
+
         aboutTitle: 'About',
-        aboutText: 'I am currently pursuing an MSc in Marketing Analytics at EDHEC Business School. My work sits at the intersection of AI applications, product thinking, and customer insight — from campaign performance analysis to LLM-based comment understanding and multi-agent service design.',
+        aboutText1: 'I am currently pursuing an MSc in Marketing Analytics at EDHEC Business School. My work focuses on how AI applications, customer insight, and product thinking can work together to improve user experience and business decisions.',
+        aboutText2: 'With experience across campaign analytics, CRM strategy, social growth, and LLM-based user insight projects, I enjoy turning messy signals into structured understanding — whether through dashboards, segmentation models, or AI-powered workflows.',
+
         projectsTitle: 'Selected Projects',
-        projectsNote: 'A mix of AI application, product logic, and data analysis.',
+        projectsNote: 'Case-based work across AI applications, user insight, and CRM analytics.',
         p1meta: 'AI Product Design',
         p1title: 'AI Customer Service Agent',
-        p1desc: 'Designed a multi-agent workflow covering FAQ, order tracking, and recommendation logic, with structured routing and response design.',
+        p1desc: 'Designed a multi-agent customer service workflow covering FAQ, order tracking, and recommendation scenarios, with a focus on intent routing and scalable support logic.',
+        p1d1: 'Problem: Customer requests were fragmented across multiple support scenarios.',
+        p1d2: 'Role: Designed the workflow, service logic, and response structure.',
+        p1d3: 'Approach: Mapped user intents and built a multi-agent flow with scenario-based routing.',
+        p1d4: 'Output: Created a clearer and more scalable support structure for relevant responses.',
+
         p2meta: 'LLM Application',
-        p2title: 'TikTok Comment Analysis',
-        p2desc: 'Used LLM API and NLP methods to analyze user sentiment and extract key themes from comments, turning raw feedback into product insight.',
+        p2title: 'Steam Comment Analysis',
+        p2desc: 'Built an LLM-assisted comment analysis workflow to classify sentiment, identify recurring themes, and turn unstructured Steam feedback into actionable user insight.',
+        p2d1: 'Problem: Raw user comments were noisy and difficult to interpret at scale.',
+        p2d2: 'Role: Designed the analysis logic and insight extraction process.',
+        p2d3: 'Approach: Combined LLM API, NLP preprocessing, sentiment classification, and topic clustering.',
+        p2d4: 'Output: Transformed user comments into structured signals for content and product understanding.',
+
         p3meta: 'CRM Analytics',
         p3title: 'CRM Segmentation & CLV',
-        p3desc: 'Built RFM segmentation and lifetime value models to identify high-value and churn-risk users and support retention strategy.',
+        p3desc: 'Developed RFM segmentation and CLV models to identify high-value, low-engagement, and churn-risk customer groups, supporting retention and lifecycle strategy.',
+        p3d1: 'Problem: Customer behaviors were not clearly prioritized for retention action.',
+        p3d2: 'Role: Conducted segmentation and customer value modeling.',
+        p3d3: 'Approach: Used RFM analysis, BG/NBD, Gamma-Gamma, and CLV estimation.',
+        p3d4: 'Output: Identified priority customer segments and supported differentiated retention strategy.',
+
+        viewDetails: 'View Details',
+        hideDetails: 'Hide Details',
+
         experienceTitle: 'Work Experience',
         experienceNote: 'Campaign analysis, digital growth, and market intelligence across China and France.',
-        e1title: 'Stagiaire Analyste Operational',
+        e1title: 'Operations Analyst Intern',
         e1company: 'Blue Focus',
         e1date: 'Apr 2025 – Jul 2025',
         e1chip1: 'Shanghai, China',
@@ -784,25 +941,45 @@
         e1b3: 'Collaborated with account managers, clients, and creator networks to refine campaign briefs and continuously adjust media allocation based on performance data.',
         e1b4: 'Designed Excel dashboards and comparative analyses across creators, formats, and time slots to support data-driven budget allocation.',
         e1b5: 'Supported the optimization of campaign budgets ranging from $10K to $100K and contributed to a U.S. pre-launch campaign achieving 3.5% CTR and 9% engagement.',
-        e2title: 'Apprentie Analyste Marketing Digital',
+
+        e2title: 'Digital Marketing Analyst Apprentice',
         e2company: 'Pharmacie du Polygone',
         e2date: 'Jul 2024 – Dec 2024',
         e2chip1: 'Montpellier, France',
-        e2chip2: 'Intership',
-        e2b1: 'Managed and monitored brand accounts on TikTok, Instagram, and Rednote, planning bilingual content to support international visibility and audience engagement.',
+        e2chip2: 'Internship',
+        e2b1: 'Managed and monitored brand accounts on Instagram and Rednote, planning bilingual content to support international visibility and audience engagement.',
         e2b2: 'Developed and executed a bilingual social media strategy, growing the community from 2,000 to 5,000 followers through optimized content formats and posting frequency.',
         e2b3: 'Analyzed the conversion funnel of livestream campaigns on WeChat and Douyin, identifying drop-off points between viewer engagement and purchase.',
         e2b4: 'Optimized livestream sales scripts and product presentation flow, improving clarity of product benefits and call-to-action structure.',
         e2b5: 'Implemented data-driven adjustments that increased the conversion rate of Chinese customer orders by 15% during livestream campaigns.',
-        e3title: 'Stagiaire Consultante Stratégique',
+
+        e3title: 'Strategy Consulting Intern',
         e3company: 'Quest Adventure Consulting',
         e3date: 'May 2024 – Jul 2024',
         e3chip1: 'Beijing, China',
-        e3chip2: 'Intership',
+        e3chip2: 'Internship',
         e3b1: 'Collected and synthesized market intelligence from industry reports, public databases, and competitor communications to support strategic recommendations.',
         e3b2: 'Conducted market and competitor landscape analyses, identifying key trends in product positioning, pricing strategies, and digital marketing approaches.',
         e3b3: 'Built competitive analysis frameworks combining qualitative insights and quantitative indicators to identify opportunities and market gaps.',
         e3b4: 'Structured findings into comparative analysis reports and visual summaries, enabling consultants and clients to quickly understand strategic directions.',
+
+        personalTitle: 'More About Me',
+        personalNote: 'A few things that shape how I think, learn, and communicate.',
+        personal1meta: 'Sport',
+        personal1title: 'Bouldering',
+        personal1desc: 'I enjoy bouldering for its mix of patience, problem solving, and constant iteration — a mindset that also shapes how I approach work.',
+        personal2meta: 'Languages',
+        personal2title: 'Cross-cultural Communication',
+        personal2desc: 'Working across Chinese, English, and French has trained me to adapt ideas clearly for different people, contexts, and audiences.',
+        personal3meta: 'Curiosity',
+        personal3title: 'AI & Digital Storytelling',
+        personal3desc: 'I am interested in how AI tools, content, and user behavior interact — especially when insights can be turned into better experiences.',
+        socialTitle: 'Find Me Elsewhere',
+        socialInstagram: 'Instagram: @neige_xueying',
+        socialLinkedin: 'LinkedIn',
+        socialXhs: 'Xiaohongshu: @Neige Limpide',
+        socialWechat: 'WeChat: Available upon request',
+
         educationTitle: 'Education & Skills',
         educationNote: 'Academic background in marketing analytics, digital marketing, and multilingual communication.',
         ed1name: 'EDHEC Business School',
@@ -822,38 +999,67 @@
         ed4date: 'Sep 2018 – Jun 2022',
         ed4desc: 'Shanghai, China',
         skillsTitle: 'Core Skills',
+
         contactTitle: 'Contact',
         contactMain: 'Open to opportunities in AI product, growth, CRM, and analytics.',
+        contactSub: 'Feel free to reach out for internships, projects, or collaborations.',
+        contactResume: 'Resume PDF',
+
         footerText: 'Minimal portfolio website for applications in AI product and marketing analytics.'
       },
+
       zh: {
+        brandName: '刘雪莹',
         nameTitle: '刘雪莹',
         titleSub: 'AI 产品 · 营销分析',
         navProjects: '项目',
         navExperience: '经历',
+        navPersonal: '更多关于我',
         navEducation: '教育',
         navContact: '联系',
         langToggle: 'EN',
         eyebrow: '作品集',
-        subtitle: 'AI 产品、增长与营销分析方向，擅长将用户信号转化为结构化洞察与可执行决策。',
+        subtitle: '聚焦 AI 应用、CRM 与营销分析的交叉场景，将用户信号转化为可执行的产品与增长决策。',
         emailBtn: '联系我',
-        notionBtn: 'Notion',
+        resumeBtn: '查看简历',
         side1: '常驻法国 / 中国',
         side2: 'EDHEC 市场营销分析硕士',
         side3: '关注 AI 产品、CRM 与数据驱动增长',
+        side4: '中文 · 英语 · 法语',
+
         aboutTitle: '关于我',
-        aboutText: '我目前就读于 EDHEC 商学院市场营销分析硕士项目。我的经历位于 AI 应用、产品思维与用户洞察的交叉点，涵盖营销效果分析、基于 LLM 的评论理解以及多 Agent 服务设计。',
+        aboutText1: '我目前就读于 EDHEC 商学院市场营销分析硕士项目，关注 AI 应用、用户洞察与产品思维如何共同作用于更好的用户体验和商业决策。',
+        aboutText2: '我拥有营销投放分析、CRM 策略、社媒增长以及基于 LLM 的用户洞察项目经验，喜欢把分散、复杂的信号整理成结构化理解，并进一步转化为可执行方案。',
+
         projectsTitle: '精选项目',
-        projectsNote: '结合 AI 应用、产品逻辑与数据分析能力。',
+        projectsNote: '围绕 AI 应用、用户洞察与 CRM 分析的案例型项目。',
         p1meta: 'AI 产品设计',
         p1title: 'AI 客服智能体',
-        p1desc: '设计了覆盖 FAQ、订单查询与推荐逻辑的多 Agent 工作流，梳理了清晰的路由与响应机制。',
+        p1desc: '设计了覆盖 FAQ、订单查询和推荐场景的多智能体客服工作流，重点优化意图路由与可扩展的服务逻辑。',
+        p1d1: '问题：用户请求分散在多个客服场景中，支持链路不够清晰。',
+        p1d2: '角色：负责整体工作流、服务逻辑与响应结构设计。',
+        p1d3: '方法：梳理用户意图，并基于场景设计多智能体路由流程。',
+        p1d4: '产出：搭建了更清晰、可扩展的客服支持结构，提升响应相关性。',
+
         p2meta: 'LLM 应用',
-        p2title: 'TikTok 评论分析',
-        p2desc: '结合 LLM API 与 NLP 方法分析用户情绪与评论主题，将原始反馈转化为可用于产品优化的洞察。',
+        p2title: 'Steam 评论分析',
+        p2desc: '搭建基于 LLM 的评论分析流程，对 Steam 用户评论进行情绪识别和主题提取，将非结构化反馈转化为可执行洞察。',
+        p2d1: '问题：原始用户评论噪音大，难以大规模快速解读。',
+        p2d2: '角色：负责分析逻辑和洞察提取流程设计。',
+        p2d3: '方法：结合 LLM API、NLP 预处理、情绪分类和主题聚类。',
+        p2d4: '产出：将大量评论转化为结构化用户信号，支持内容和产品理解。',
+
         p3meta: 'CRM 分析',
         p3title: '用户分群与 CLV',
-        p3desc: '构建 RFM 分群与用户终身价值模型，识别高价值与流失风险用户，支持留存策略设计。',
+        p3desc: '构建 RFM 分群与 CLV 模型，识别高价值、低活跃及流失风险用户，支持留存与生命周期策略制定。',
+        p3d1: '问题：客户行为价值没有被清晰分层，难以针对性运营。',
+        p3d2: '角色：负责用户分群与价值建模分析。',
+        p3d3: '方法：使用 RFM、BG/NBD、Gamma-Gamma 与 CLV 估算。',
+        p3d4: '产出：识别关键用户群体，为差异化留存策略提供依据。',
+
+        viewDetails: '查看详情',
+        hideDetails: '收起详情',
+
         experienceTitle: '工作经历',
         experienceNote: '覆盖中法市场的投放分析、数字增长与市场研究经历。',
         e1title: '运营分析实习生',
@@ -866,16 +1072,18 @@
         e1b3: '与客户经理、客户方及 MCN 协同沟通，根据数据表现持续优化 brief 与预算分配。',
         e1b4: '设计 Excel 数据看板与横向对比分析，帮助团队按创作者、内容形式与时段进行数据驱动的预算配置。',
         e1b5: '参与 1 万到 10 万美元预算项目优化，并支持美国预热项目取得 3.5% CTR 和 9% engagement。',
+
         e2title: '数字营销与数据分析学徒',
         e2company: 'Pharmacie du Polygone',
         e2date: '2024.07 – 2024.12',
         e2chip1: '蒙彼利埃，法国',
         e2chip2: '实习',
-        e2b1: '负责 TikTok、Instagram 与小红书账号运营与监测，策划中英双语内容以提升品牌曝光与互动。',
+        e2b1: '负责 Instagram 与小红书账号运营与监测，策划中英双语内容以提升品牌曝光与互动。',
         e2b2: '制定并执行双语社媒策略，通过内容形式与发布频率优化，将社区规模从 2,000 提升至 5,000。',
         e2b3: '分析微信与抖音直播转化漏斗，识别从观看互动到下单之间的关键流失点。',
         e2b4: '优化直播销售话术与产品呈现流程，提升卖点表达清晰度与行动引导效果。',
         e2b5: '通过数据驱动调整，使中国客户订单转化率在直播场景中提升 15%。',
+
         e3title: '战略咨询实习生',
         e3company: 'Quest Adventure Consulting',
         e3date: '2024.05 – 2024.07',
@@ -885,6 +1093,24 @@
         e3b2: '开展市场与竞品格局分析，识别产品定位、定价策略与数字营销路径中的关键趋势。',
         e3b3: '搭建结合定性洞察与定量指标的竞品分析框架，帮助识别机会点与市场空白。',
         e3b4: '将发现整理为对比报告与可视化摘要，帮助顾问与客户快速理解战略方向。',
+
+        personalTitle: '更多关于我',
+        personalNote: '一些影响我思考、学习和表达方式的事情。',
+        personal1meta: '运动',
+        personal1title: '抱石 / 攀岩',
+        personal1desc: '我喜欢抱石，因为它结合了耐心、问题解决和不断试错的过程，这种思维方式也影响了我处理工作的方式。',
+        personal2meta: '语言',
+        personal2title: '跨文化沟通',
+        personal2desc: '在中文、英文和法语环境中切换，让我更擅长根据不同对象、语境和受众调整表达方式。',
+        personal3meta: '兴趣',
+        personal3title: 'AI 与数字叙事',
+        personal3desc: '我对 AI 工具、内容表达和用户行为之间的关系很感兴趣，尤其关注如何把洞察真正转化为更好的体验。',
+        socialTitle: '也可以在这些平台找到我',
+        socialInstagram: 'Instagram: @neige_xueying',
+        socialLinkedin: 'LinkedIn',
+        socialXhs: '小红书: @Neige Limpide',
+        socialWechat: '微信: 可按需提供',
+
         educationTitle: '教育背景与技能',
         educationNote: '市场分析、数字营销与多语种背景相结合。',
         ed1name: 'EDHEC 商学院',
@@ -904,8 +1130,12 @@
         ed4date: '2018.09 – 2022.06',
         ed4desc: '上海，中国',
         skillsTitle: '核心技能',
+
         contactTitle: '联系',
         contactMain: '期待 AI 产品、增长、CRM 与数据分析相关机会。',
+        contactSub: '欢迎就实习、项目合作或交流与我联系。',
+        contactResume: '简历 PDF',
+
         footerText: '用于 AI 产品与营销分析岗位申请的极简个人网站。'
       }
     };
@@ -914,9 +1144,30 @@
 
     function updateLanguage() {
       const lang = isChinese ? 'zh' : 'en';
+
       ids.forEach(id => {
         const el = document.getElementById(id);
-        if (el) el.textContent = content[lang][id];
+        if (el) {
+          el.textContent = content[lang][id];
+        }
+      });
+
+      document.documentElement.lang = isChinese ? 'zh' : 'en';
+
+      const buttons = [
+        { btnId: 'p1btn', detailsId: 'p1details' },
+        { btnId: 'p2btn', detailsId: 'p2details' },
+        { btnId: 'p3btn', detailsId: 'p3details' }
+      ];
+
+      buttons.forEach(({ btnId, detailsId }) => {
+        const btn = document.getElementById(btnId);
+        const details = document.getElementById(detailsId);
+        if (btn && details) {
+          btn.textContent = details.style.display === 'block'
+            ? content[lang].hideDetails
+            : content[lang].viewDetails;
+        }
       });
     }
 
